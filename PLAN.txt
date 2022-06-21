@@ -1,0 +1,27 @@
+Conference
+1. Transdisciplinary AI  (TransAI 2022) 
+ddl: July 1st
+website: https://www.transai.org/
+length: 8 pages
+
+2. ICRCV 2022
+ddl: July 20th
+website: http://www.icrcv.org/index.html
+length: up to 10 pages
+
+3. ICCRD 2023
+ddl: Aug 10th
+website: http://www.iccrd.org/index.html
+length: 
+
+4. IEEE CSDE 2022
+ddl: June 30
+website: http://ieee-csde.org/csde2022/important-dates/
+length: up to 6. if more: $80/page
+
+Journal
+1. ACM Transactions on Graphics
+2. Journal of Machine Learning Research
+3. IEEE Transactions on Pattern Analysis and Machine Intelligence
+4. IEEE Transactions on Neural Networks and Learning Systems
+5. PeerJ
