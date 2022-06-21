@@ -1,0 +1,77 @@
+---
+title: "Mix_training"
+author: "Yiming"
+date: '2022-06-21'
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+library(tidyverse)
+library(ggpubr)
+library(patchwork)
+library(readr)
+```
+
+
+```{r}
+x <- c("Original", "SNP_0.1", "SNP_0.2", "SNP_0.3", "SNP_0.4", "SNP_0.5")
+#mix_255025 <- c(75.538, 97.385, 95.077, 89.077, 83.231, 72.923)
+mix_255025 <- c(as.matrix(read.delim('./res_255025.txt',header = FALSE)))
+mix_333333 <- c(as.matrix(read.delim('./res_333333.txt',header = FALSE)))
+mix_204040 <- c(as.matrix(read.delim('./res_204040.txt',header = FALSE)))
+mix_404020 <- c(as.matrix(read.delim('./res_404020.txt',header = FALSE)))
+
+df <- data.frame(x=x,  mix_255025_ResNet18=mix_255025, mix_333333_ResNet18=mix_333333, mix_204040_ResNet18=mix_204040, mix_404020_ResNet18=mix_404020)
+df <- pivot_longer(df, cols = c(mix_255025_ResNet18, mix_333333_ResNet18, mix_204040_ResNet18, mix_404020_ResNet18), 
+               names_to = "model",
+               values_to = "value")
+
+p3 <- ggplot(df, aes(x=x, y=value, color=model, group=model)) +
+  geom_line() + 
+  geom_point()+
+  #scale_color_brewer(palette="Dark2")+
+  # fifth color: "#E41A1C"
+  scale_color_manual(values = c("#1B9E77", "#E6AB02", "#7570B3", "#E7298A", "#66A61E" )) + 
+  theme_classic() +
+  labs(title="ResNet-18", x="Test set", y="Accuracy (%)") + 
+  ylim(0,100) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+x <- c("Original", "SNP_0.1", "SNP_0.2", "SNP_0.3", "SNP_0.4", "SNP_0.5")
+mix_255025 <- c(as.matrix(read.delim('./vgg_255025.txt',header = FALSE)))
+mix_333333 <- c(as.matrix(read.delim('./vgg_333333.txt',header = FALSE)))
+mix_204040 <- c(as.matrix(read.delim('./vgg_204040.txt',header = FALSE)))
+mix_404020 <- c(as.matrix(read.delim('./vgg_404020.txt',header = FALSE)))
+
+df <- data.frame(x=x, mix_255025_VGG16=mix_255025, mix_333333_VGG16=mix_333333, mix_204040_VGG16=mix_204040, mix_404020_VGG16=mix_404020)
+df <- pivot_longer(df, cols = c(mix_255025_VGG16, mix_333333_VGG16, mix_204040_VGG16, mix_404020_VGG16), 
+               names_to = "model",
+               values_to = "value")
+
+p4 <- ggplot(df, aes(x=x, y=value, color=model, group=model)) +
+  geom_line() + 
+  geom_point()+
+  #scale_color_brewer(palette="Dark2")+
+  scale_color_manual(values = c("#1B9E77", "#E6AB02", "#7570B3", "#E7298A", "#66A61E")) +
+  theme_classic() +
+  labs(title="VGG16", x="Test set", y="Accuracy (%)") + 
+  ylim(0,100) +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+```{r}
+setwd("./")
+
+png(filename="mix_training.png", res=300, width=12, height=4, units="in")
+p3+p4
+dev.off()
+```
