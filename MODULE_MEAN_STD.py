@@ -26,9 +26,3 @@ def Mean_and_std_of_dataset(DATASETDIR, BATCHSIZE = 64, RESIZE = (224,224)):
     data_mean, data_std = get_mean_and_std(test_dataloader)
     return data_mean, data_std
 
-# an example
-#dir = "D:/Academic/2022Spring/575/Project/Model/PIC_generator/data/GS/test"
-#dir = "D:/Academic/2022Spring/575/Project/Model/PIC_generator/data/GS_m_0.2_v_0.2/test"
-#a,b = Mean_and_std_of_dataset(dir)
-#print(a)
-#print(b)
